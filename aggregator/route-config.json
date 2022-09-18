@@ -1,0 +1,38 @@
+{
+  "getPhoneList": {
+    "actionRoute": ["phone.getPhone"],
+    "resultObject": "getPhoneResult"
+  },
+  "getPhoneById": {
+    "actionRoute": ["phone.getPhoneById"],
+    "resultObject": "getphoneByIdResult"
+  },
+  "addPhone": {
+    "actionRoute": ["phone.addPhone"],
+    "resultObject": "addPhoneResult"
+  },
+  "updatePhone": {
+    "actionRoute": ["phone.updatePhone"],
+    "resultObject": "addPhoneResult"
+  },
+  "deletePhone": {
+    "actionRoute": ["phone.deletePhone"],
+    "resultObject": "deletePhoneResult"
+  },
+  "insertCall": {
+    "actionRoute": ["phone.getPhoneById", "call.addCall", "call.getCallByPhoneId", "phone.updateCallPhone"],
+    "resultObject": "insertCallResult"
+  },
+  "getCall": {
+    "actionRoute": ["call.getCall"],
+    "resultObject": "getCallResult"
+  },
+  "deleteCall": {
+    "actionRoute": ["call.getCallById", "call.deleteCall", "phone.getPhoneById", "call.getCallByPhoneId", "phone.updateCallPhone"],
+    "resultObject": "deleteCallResult"
+  },
+  "getCallbyId": {
+    "actionRoute": ["call.getCallById"],
+    "resultObject": "getCallByIdResult"
+  }
+}
