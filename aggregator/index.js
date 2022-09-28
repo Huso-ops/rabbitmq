@@ -18,7 +18,6 @@ connect().then(async () => {
     channel.consume("clientRequest", async function(msg) {
         
         let data = JSON.parse(msg.content.toString());
-        console.log(data);
         
       const route = routeConfig[data.action].actionRoute;
         
@@ -52,7 +51,6 @@ connect().then(async () => {
 
                  } else{
 
-                    console.log(data);
                     channel.publish("clientResponse", '', Buffer.from(JSON.stringify(data)));
                     
                  }

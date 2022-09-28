@@ -52,8 +52,6 @@ channel.consume(q.queue, async function(msg) {
     app.post("/api/phone", async (req, res) => {
 
         let uuid = uuidv4();
-        console.log(req.body);
-        console.log("calis.pls");
 
         const data = {
             action: req.body.action,

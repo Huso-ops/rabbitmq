@@ -17,7 +17,6 @@ async function phone() {
     await channel.consume("phone." + ActionArr[i], async function (msg) {
 
       let data = JSON.parse(msg.content.toString());
-      console.log(data);
 
       const result = await phoneService[ActionArr[i]](data);
 
