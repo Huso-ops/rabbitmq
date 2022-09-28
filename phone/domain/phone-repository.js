@@ -1,6 +1,4 @@
 const mongojs = require("mongojs");
-const dotenv = require("dotenv");
-dotenv.config();
 const url = "mongodb+srv://huso:3rcGPzoUA6UR6sSi@nestjs.77vms.mongodb.net/redis?retryWrites=true&w=majority";
 const collection = ["phone2","call"];
 const {MongoClient} = require("mongodb");

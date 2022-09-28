@@ -5,7 +5,7 @@ var connection, channel;
 
 async function phone() {
   
-  const amqpServer = "amqp://localhost:5672";
+  const amqpServer = "amqp://172.20.0.6:5672";
   connection = await amqp.connect(amqpServer);
   channel = await connection.createChannel();
   
@@ -17,6 +17,7 @@ async function phone() {
     await channel.consume("phone." + ActionArr[i], async function (msg) {
 
       let data = JSON.parse(msg.content.toString());
+      console.log(data);
 
       const result = await phoneService[ActionArr[i]](data);
 

@@ -4,7 +4,9 @@ const amqp = require('amqplib');
 module.exports = new class PhoneService {
 
     constructor(){
-    
+
+
+
     }
 
 
@@ -15,7 +17,7 @@ module.exports = new class PhoneService {
           },time)
       })
   }
-    
+
 
       async addPhone(req){  
 
@@ -79,7 +81,7 @@ module.exports = new class PhoneService {
 
       let value = req.resultStack.getCallByPhoneIdResult.map(a => a.phoneId);
       let maxDate = "";
-         
+
       if(value[0]) {
 
       maxDate = new Date(Math.max( ...req.resultStack.getCallByPhoneIdResult.map(a => {return new Date(a.createdAt)})));
