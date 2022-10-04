@@ -31,6 +31,9 @@ connect().then(async () => {
       
         channel.sendToQueue(route[0], Buffer.from(JSON.stringify(test)));
 
+        channel.ack(msg);
+    });
+
         channel.consume("aggregator", async function(msg) {
 
         
@@ -38,7 +41,7 @@ connect().then(async () => {
             let data = JSON.parse(msg.content.toString());
             const route = routeConfig[data.action].actionRoute;
 
-                 if(data.routeIndex < routeConfig[data.action].actionRoute.length) {
+                 if(data.routeIndex < route.length) {
 
                    channel.sendToQueue(route[data.routeIndex], Buffer.from(JSON.stringify({
                     action: data.action,
@@ -54,13 +57,10 @@ connect().then(async () => {
                     channel.publish("clientResponse", '', Buffer.from(JSON.stringify(data)));
                     
                  }
-                    
 
               channel.ack(msg);
         });
 
-        channel.ack(msg);
-    });
 
 })
 

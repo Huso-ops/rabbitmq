@@ -36,8 +36,7 @@ connect().then(async () => {
       },time)
   })
 }
-    
-        
+
 channel.consume(q.queue, async function(msg) {
             
   const value = await JSON.parse(msg.content.toString()); 

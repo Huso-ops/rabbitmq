@@ -5,7 +5,7 @@ var connection, channel;
 
  async function call () {
 
-  const amqpServer = "amqp://172.20.0.6:5672";
+    const amqpServer = "amqp://172.20.0.6:5672";
     connection = await amqp.connect(amqpServer);
     channel = await connection.createChannel();
 

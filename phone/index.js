@@ -5,30 +5,27 @@ var connection, channel;
 
 async function phone() {
   
-  const amqpServer = "amqp://172.20.0.6:5672";
-  connection = await amqp.connect(amqpServer);
-  channel = await connection.createChannel();
+    const amqpServer = "amqp://172.20.0.6:5672";
+    connection = await amqp.connect(amqpServer);
+    channel = await connection.createChannel();
   
-  const ActionArr = _getFunctionList(phoneService);
+    const ActionArr = _getFunctionList(phoneService);
 
-  for (let i = 0; i < ActionArr.length; i++) {
+    for (let i = 0; i < ActionArr.length; i++) {
 
     await channel.assertQueue("phone." + ActionArr[i], "aggregator");
     await channel.consume("phone." + ActionArr[i], async function (msg) {
 
-      let data = JSON.parse(msg.content.toString());
+    let data = JSON.parse(msg.content.toString());
 
-      const result = await phoneService[ActionArr[i]](data);
+    const result = await phoneService[ActionArr[i]](data);
 
-      if (result) {
+    if (result) {
 
         data.resultStack[ActionArr[i] + "Result"] = result;
-      }
+    }
 
-      setTimeout(async () => {
-        
-         }, 5000)  
-await channel.sendToQueue(
+    await channel.sendToQueue(
         "aggregator",
         Buffer.from(
           JSON.stringify({
@@ -40,10 +37,6 @@ await channel.sendToQueue(
           })
         )
       );
-
-   
-      
-      
 
       channel.ack(msg);
     });
