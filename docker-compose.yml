@@ -9,12 +9,12 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-       mcsnet:
-         ipv4_address: 172.20.0.6
+      mcsnet:
+        ipv4_address: 172.20.0.6
   aggregator:
 
     depends_on:
-        - rabbitmq
+      - rabbitmq
     build: ./aggregator
 
     deploy:

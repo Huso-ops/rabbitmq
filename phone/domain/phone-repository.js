@@ -55,9 +55,7 @@ constructor(){
 
     const db = client.db("redis");
     let collection = db.collection("phone2");
-    let phone = await collection.find({});
-
-    return phone.toArray();
+    return await collection.find({}).toArray();
 
   }
 
@@ -66,9 +64,7 @@ constructor(){
 
     const db = client.db("redis");
     let collection = db.collection("phone2");
-    let entity = await collection.findOne({_id: mongojs.ObjectID(req)});
-  
-    return entity;
+    return collection.findOne({_id: mongojs.ObjectID(req)});
  
   }
 
