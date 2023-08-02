@@ -4,10 +4,12 @@ const routeConfig = require("./route-config.json");
 var connection, channel;
 
 async function connect() {
-    const amqpServer = "amqp://localhost:5672";
+    const amqpServer = "amqp://172.20.0.6:5672";
      connection = await amqp.connect(amqpServer);
      channel = await connection.createChannel();
-    await channel.assertQueue("clientRequest","aggregator", {durable : false},);
+     await channel.assertQueue("clientRequest", {durable : false});
+     await channel.assertQueue("aggregator", {durable : false});
+     await channel.assertExchange("clientResponse", 'fanout', {durable : false})
 
 }
 
@@ -29,6 +31,9 @@ connect().then(async () => {
       
         channel.sendToQueue(route[0], Buffer.from(JSON.stringify(test)));
 
+        channel.ack(msg);
+    });
+
         channel.consume("aggregator", async function(msg) {
 
         
@@ -36,7 +41,7 @@ connect().then(async () => {
             let data = JSON.parse(msg.content.toString());
             const route = routeConfig[data.action].actionRoute;
 
-                 if(data.routeIndex < routeConfig[data.action].actionRoute.length) {
+                 if(data.routeIndex < route.length) {
 
                    channel.sendToQueue(route[data.routeIndex], Buffer.from(JSON.stringify({
                     action: data.action,
@@ -49,17 +54,13 @@ connect().then(async () => {
 
                  } else{
 
-                    console.log(data);
-                    channel.sendToQueue("clientResponse", Buffer.from(JSON.stringify(data)));
+                    channel.publish("clientResponse", '', Buffer.from(JSON.stringify(data)));
                     
                  }
-                    
 
               channel.ack(msg);
         });
 
-        channel.ack(msg);
-    });
 
 })
 

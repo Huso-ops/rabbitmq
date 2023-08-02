@@ -31,7 +31,7 @@
     "actionRoute": ["call.getCallById", "call.deleteCall", "phone.getPhoneById", "call.getCallByPhoneId", "phone.updateCallPhone"],
     "resultObject": "deleteCallResult"
   },
-  "getCallbyId": {
+  "getCallById": {
     "actionRoute": ["call.getCallById"],
     "resultObject": "getCallByIdResult"
   }

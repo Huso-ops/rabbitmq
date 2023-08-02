@@ -1,6 +1,4 @@
 const mongojs = require("mongojs");
-const dotenv = require("dotenv");
-dotenv.config();
 const url = "mongodb+srv://huso:3rcGPzoUA6UR6sSi@nestjs.77vms.mongodb.net/redis?retryWrites=true&w=majority";
 const collection = ["phone2","call"];
 const {MongoClient} = require("mongodb");
@@ -57,9 +55,7 @@ constructor(){
 
     const db = client.db("redis");
     let collection = db.collection("phone2");
-    let phone = await collection.find({});
-
-    return phone.toArray();
+    return await collection.find({}).toArray();
 
   }
 
@@ -68,9 +64,7 @@ constructor(){
 
     const db = client.db("redis");
     let collection = db.collection("phone2");
-    let entity = await collection.findOne({_id: mongojs.ObjectID(req)});
-  
-    return entity;
+    return collection.findOne({_id: mongojs.ObjectID(req)});
  
   }
 
